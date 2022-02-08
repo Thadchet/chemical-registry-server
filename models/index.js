@@ -6,14 +6,15 @@ const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const db = {};
+require("dotenv").config();
 
 let sequelize = new Sequelize(
-  "chemical_inventory",
-  "bosskung",
-  "084210",
+  process.env.DATABASE_NAME,
+  process.env.DATABASE_USERNAME,
+  process.env.DATABASE_PASSWORD,
   {
-    host: "13.214.209.62",
-    port: 3306,
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
     dialect: "mysql",
   }
 );
