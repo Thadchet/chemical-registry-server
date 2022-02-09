@@ -32,7 +32,7 @@ app.get("/test/api", (req, res) => {
   res.json({ message: "Test Api!" });
 });
 
-app.get("/inventory/latest", async (req, res) => {
+app.get("/test/api/inventory/latest", async (req, res) => {
   result = await db.inventory.findAll({
     limit: 1,
     order: [["createdAt", "DESC"]],
@@ -40,7 +40,7 @@ app.get("/inventory/latest", async (req, res) => {
   res.json({ message: result });
 });
 
-app.post("/add/inventory", async (req, res) => {
+app.post("/test/api/add/inventory", async (req, res) => {
   const data = {
     ...req.body,
     createdAt: new Date(),
@@ -51,7 +51,7 @@ app.post("/add/inventory", async (req, res) => {
   return res.json({ message: result });
 });
 
-app.get("/inventory", async (req, res) => {
+app.get("/test/api/inventory", async (req, res) => {
   const query = req.query;
   const search = query.search || "";
   if (search !== "") {
