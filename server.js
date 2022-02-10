@@ -3,6 +3,7 @@ const app = express();
 const db = require("./models");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const Op = db.Sequelize.Op;
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -57,7 +58,18 @@ app.get("/test/api/inventory", async (req, res) => {
   if (search !== "") {
     result = await db.inventory.findAll({
       where: {
-        owner: search,
+        [Op.or]: [
+          { owner: { [Op.like]: `%${search}%` } },
+          { chemical_name: { [Op.like]: `%${search}%` } },
+          { code: { [Op.like]: `%${search}%` } },
+          { un_no: { [Op.like]: `%${search}%` } },
+          { cus_no: { [Op.like]: `%${search}%` } },
+          { un_class: { [Op.like]: `%${search}%` } },
+          { state: { [Op.like]: `%${search}%` } },
+          { packing_size: { [Op.like]: `%${search}%` } },
+          { packing_unit: { [Op.like]: `%${search}%` } },
+          { storage: { [Op.like]: `%${search}%` } },
+        ],
       },
     });
     return res.json({ message: result });
